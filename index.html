@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Extreme Birders</title>
+<style>
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f9ff;
+  color:#1f2933;
+}
+header{
+  background:#163f63;
+  color:#fff;
+  padding:26px 34px;
+  border-bottom:6px solid #2f79b7;
+}
+h1{margin:0}
+header p{margin:6px 0 0;color:#cfe8ff}
+main{
+  max-width:850px;
+  margin:28px auto;
+  padding:0 20px;
+}
+.ranking-list{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+.card{
+  background:#fff;
+  border:1px solid #cfe1f2;
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 8px 20px rgba(22,63,99,.08);
+}
+.card-header{
+  background:#eaf5ff;
+  border-bottom:1px solid #cfe1f2;
+  padding:16px 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+}
+.name-wrap{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.rank{
+  background:#163f63;
+  color:#fff;
+  min-width:34px;
+  height:34px;
+  border-radius:999px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+}
+.card-header h2{
+  margin:0;
+  color:#163f63;
+}
+.header-actions{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:5px;
+}
+.button-row{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.profile-btn{
+  display:inline-block;
+  border:1px solid #b7d4ec;
+  background:#163f63;
+  color:white;
+  border-radius:8px;
+  padding:7px 12px;
+  font-weight:bold;
+  cursor:pointer;
+  text-decoration:none;
+}
+.profile-btn:hover{opacity:.9}
+.edit-btn{
+  border:1px solid #b7d4ec;
+  background:#fff;
+  color:#163f63;
+  border-radius:8px;
+  padding:7px 13px;
+  font-weight:bold;
+  cursor:pointer;
+}
+.edit-btn:hover{
+  background:#f4f9ff;
+}
+.last-updated{
+  font-size:11px;
+  color:#64748b;
+  text-align:right;
+}
+.card-body{
+  padding:18px;
+  line-height:2;
+}
+.field-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  max-width:360px;
+  margin-bottom:8px;
+}
+.field-label{
+  font-weight:normal;
+}
+.photo-label{
+  font-weight:bold;
+}
+.value-display{
+  min-width:50px;
+  text-align:right;
+  font-weight:bold;
+}
+.value-input{
+  display:none;
+  width:90px;
+  padding:7px;
+  border:1px solid #b7d4ec;
+  border-radius:8px;
+  font-size:15px;
+}
+.card.editing .value-display{
+  display:none;
+}
+.card.editing .value-input{
+  display:block;
+}
+@media(max-width:700px){
+  .card-header{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+  .header-actions{
+    align-items:flex-start;
+  }
+  .last-updated{
+    text-align:left;
+  }
+}
+</style>
+</head>
+<body>
+<header>
+<h1>The Great Big Year - 2026</h1>
+<p>Extreme Birdwatching Competition Tracker</p>
+</header>
+
+<main>
+<div class="ranking-list" id="rankingList">
+
+  <div class="card" data-person="will">
+    <div class="card-header">
+      <div class="name-wrap">
+        <span class="rank">1</span>
+        <h2>Will</h2>
+      </div>
+      <div class="header-actions">
+        <div class="button-row">
+          <a class="profile-btn" href="#" target="_blank">Will's eBird Profile</a>
+          <button class="edit-btn" type="button" onclick="toggleEdit(this)">Edit</button>
+        </div>
+        <div class="last-updated">Last Updated: Never</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="field-row">
+        <span class="photo-label">Species With Photos:</span>
+        <span class="value-display" data-field="photos">0</span>
+        <input class="value-input" data-field="photos" type="number" min="0" value="0">
+      </div>
+      <div class="field-row">
+        <span class="field-label">Complete Checklists:</span>
+        <span class="value-display" data-field="checklists">0</span>
+        <input class="value-input" data-field="checklists" type="number" min="0" value="0">
+      </div>
+    </div>
+  </div>
+
+  <div class="card" data-person="carson">
+    <div class="card-header">
+      <div class="name-wrap">
+        <span class="rank">2</span>
+        <h2>Carson</h2>
+      </div>
+      <div class="header-actions">
+        <div class="button-row">
+          <a class="profile-btn" href="https://ebird.org/profile/OTYwNzI3NA==/world" target="_blank">Carson's eBird Profile</a>
+          <button class="edit-btn" type="button" onclick="toggleEdit(this)">Edit</button>
+        </div>
+        <div class="last-updated">Last Updated: Never</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="field-row">
+        <span class="photo-label">Species With Photos:</span>
+        <span class="value-display" data-field="photos">0</span>
+        <input class="value-input" data-field="photos" type="number" min="0" value="0">
+      </div>
+      <div class="field-row">
+        <span class="field-label">Complete Checklists:</span>
+        <span class="value-display" data-field="checklists">0</span>
+        <input class="value-input" data-field="checklists" type="number" min="0" value="0">
+      </div>
+    </div>
+  </div>
+
+  <div class="card" data-person="cole">
+    <div class="card-header">
+      <div class="name-wrap">
+        <span class="rank">3</span>
+        <h2>Cole</h2>
+      </div>
+      <div class="header-actions">
+        <div class="button-row">
+          <a class="profile-btn" href="https://ebird.org/profile/OTYwNzQ4Nw==/world" target="_blank">Cole's eBird Profile</a>
+          <button class="edit-btn" type="button" onclick="toggleEdit(this)">Edit</button>
+        </div>
+        <div class="last-updated">Last Updated: Never</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="field-row">
+        <span class="photo-label">Species With Photos:</span>
+        <span class="value-display" data-field="photos">0</span>
+        <input class="value-input" data-field="photos" type="number" min="0" value="0">
+      </div>
+      <div class="field-row">
+        <span class="field-label">Complete Checklists:</span>
+        <span class="value-display" data-field="checklists">0</span>
+        <input class="value-input" data-field="checklists" type="number" min="0" value="0">
+      </div>
+    </div>
+  </div>
+
+  <div class="card" data-person="ryan">
+    <div class="card-header">
+      <div class="name-wrap">
+        <span class="rank">4</span>
+        <h2>Ryan</h2>
+      </div>
+      <div class="header-actions">
+        <div class="button-row">
+          <a class="profile-btn" href="https://ebird.org/profile/OTYwOTA1NA/world" target="_blank">Ryan's eBird Profile</a>
+          <button class="edit-btn" type="button" onclick="toggleEdit(this)">Edit</button>
+        </div>
+        <div class="last-updated">Last Updated: Never</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="field-row">
+        <span class="photo-label">Species With Photos:</span>
+        <span class="value-display" data-field="photos">0</span>
+        <input class="value-input" data-field="photos" type="number" min="0" value="0">
+      </div>
+      <div class="field-row">
+        <span class="field-label">Complete Checklists:</span>
+        <span class="value-display" data-field="checklists">0</span>
+        <input class="value-input" data-field="checklists" type="number" min="0" value="0">
+      </div>
+    </div>
+  </div>
+
+</div>
+</main>
+
+<script>
+
+// ===== GOOGLE SHEETS CLOUD SYNC =====
+const CLOUD_SAVE_URL = "https://script.google.com/macros/s/AKfycbymk-RhIpgJtPsDo-M1Amw1QimxG2YN0zvXiiC0JQLVp7yExomYXdtcTu1QlflXcCSZjA/exec";
+
+function getBlankData() {
+  return {
+    will: { photos: 0, checklists: 0, lastUpdated: "" },
+    carson: { photos: 0, checklists: 0, lastUpdated: "" },
+    cole: { photos: 0, checklists: 0, lastUpdated: "" },
+    ryan: { photos: 0, checklists: 0, lastUpdated: "" }
+  };
+}
+
+function applyData(data) {
+  document.querySelectorAll(".card").forEach(card => {
+    const person = card.dataset.person;
+    const saved = data[person] || { photos: 0, checklists: 0, lastUpdated: "" };
+
+    ["photos", "checklists"].forEach(field => {
+      const value = saved[field] ?? 0;
+      card.querySelector('.value-display[data-field="' + field + '"]').textContent = value;
+      card.querySelector('.value-input[data-field="' + field + '"]').value = value;
+    });
+
+    card.querySelector(".last-updated").textContent = saved.lastUpdated
+      ? "Last Updated: " + saved.lastUpdated
+      : "Last Updated: Never";
+  });
+
+  sortCards();
+}
+
+function collectDataFromPage() {
+  const allData = {};
+
+  document.querySelectorAll(".card").forEach(card => {
+    const person = card.dataset.person;
+
+    allData[person] = {
+      photos: card.querySelector('.value-display[data-field="photos"]').textContent,
+      checklists: card.querySelector('.value-display[data-field="checklists"]').textContent,
+      lastUpdated: card.querySelector(".last-updated").textContent.replace("Last Updated: ", "")
+    };
+  });
+
+  return allData;
+}
+
+function saveLocalBackup(data) {
+  localStorage.setItem("bigYear_cloudBackup", JSON.stringify(data));
+}
+
+function loadLocalBackup() {
+  return JSON.parse(localStorage.getItem("bigYear_cloudBackup") || "null");
+}
+
+async function saveCloudData() {
+  const allData = collectDataFromPage();
+  saveLocalBackup(allData);
+
+  if (!CLOUD_SAVE_URL) return;
+
+  try {
+    await fetch(CLOUD_SAVE_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain" },
+      body: JSON.stringify(allData)
+    });
+  } catch (e) {
+    console.warn("Cloud save failed. Local backup saved.", e);
+  }
+}
+
+async function loadCloudData() {
+  if (!CLOUD_SAVE_URL) {
+    applyData(loadLocalBackup() || getBlankData());
+    return;
+  }
+
+  try {
+    const response = await fetch(CLOUD_SAVE_URL + "?t=" + Date.now());
+    const data = await response.json();
+
+    applyData(data);
+    saveLocalBackup(data);
+  } catch (e) {
+    console.warn("Cloud load failed. Using local backup.", e);
+    applyData(loadLocalBackup() || getBlankData());
+  }
+}
+
+function toggleEdit(button) {
+  const card = button.closest(".card");
+  const isEditing = card.classList.contains("editing");
+
+  if (!isEditing) {
+    card.classList.add("editing");
+    button.textContent = "Save";
+    return;
+  }
+
+  ["photos", "checklists"].forEach(field => {
+    const input = card.querySelector('.value-input[data-field="' + field + '"]');
+    const display = card.querySelector('.value-display[data-field="' + field + '"]');
+    display.textContent = input.value || 0;
+  });
+
+  const timestamp = new Date().toLocaleString();
+  card.querySelector(".last-updated").textContent = "Last Updated: " + timestamp;
+
+  card.classList.remove("editing");
+  button.textContent = "Edit";
+
+  sortCards();
+  saveCloudData();
+}
+
+function sortCards() {
+  const list = document.getElementById("rankingList");
+  const cards = Array.from(list.querySelectorAll(".card"));
+
+  cards.sort((a, b) => {
+    const aPhotos = parseInt(a.querySelector('.value-display[data-field="photos"]').textContent, 10) || 0;
+    const bPhotos = parseInt(b.querySelector('.value-display[data-field="photos"]').textContent, 10) || 0;
+    return bPhotos - aPhotos;
+  });
+
+  cards.forEach((card, index) => {
+    const rankEl = card.querySelector(".rank");
+
+    if (index === 0) {
+      rankEl.textContent = "🥇";
+    } else if (index === 1) {
+      rankEl.textContent = "🥈";
+    } else if (index === 2) {
+      rankEl.textContent = "🥉";
+    } else {
+      rankEl.textContent = "";
+    }
+
+    list.appendChild(card);
+  });
+}
+
+loadCloudData();
+</script>
+</body>
+</html>
